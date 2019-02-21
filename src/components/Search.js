@@ -92,38 +92,42 @@ class Search extends Component {
       <div>
         <div className='form-group column'>
           <div className='form-group row'>
-            <label className='mr-1 col-sm-2'>Artist Name:</label>
-            <input
-              className='mr-1 col-sm-4 form-control'
-              required
-              pattern='[A-Za-z0-9\s]+'
-              type='text'
-              placeholder='Search songs by artist name'
-              name='searchText'
-              onChange={this.onTextChange}
-              value={this.state.searchText}
-            />
-          </div>
-          <div className='form-group row'>
-            <label className='mr-1 col-sm-2'>Release Date:</label>
-            <label className='mr-1 col-sm-1'>from</label>
-            <input
-              className='mr-1 col-sm-2 form-control'
-              type='text'
-              placeholder='MM-DD-YYYY'
-              name='startDate'
-              onChange={this.onTextChange}
-              value={this.state.startDate}
-            />
-            <label className='mr-1 col-sm-1'>to</label>
-            <input
-              className='mr-1 col-sm-2 form-control'
-              type='text'
-              placeholder='MM-DD-YYYY'
-              name='endDate'
-              onChange={this.onTextChange}
-              value={this.state.endDate}
-            />
+            <div className='form-group column col-sm-6'>
+              <label>Artist Name:</label>
+              <input
+                className='mr-1 col-sm-10 form-control'
+                required
+                pattern='[A-Za-z0-9\s]+'
+                type='text'
+                placeholder='Search songs by artist name'
+                name='searchText'
+                onChange={this.onTextChange}
+                value={this.state.searchText}
+              />
+            </div>
+            <div className='form-group column col-sm-6'>
+              <label>Release Date:</label>
+              <div className='form-group row'>
+                <label className='mr-4 col-sm-1'>from</label>
+                <input
+                  className='mr-1 col-sm-3 form-control'
+                  type='text'
+                  placeholder='MM-DD-YYYY'
+                  name='startDate'
+                  onChange={this.onTextChange}
+                  value={this.state.startDate}
+                />
+                <label className='mr-2 col-sm-1'>to</label>
+                <input
+                  className='mr-1 col-sm-3 form-control'
+                  type='text'
+                  placeholder='MM-DD-YYYY'
+                  name='endDate'
+                  onChange={this.onTextChange}
+                  value={this.state.endDate}
+                />
+              </div>
+            </div>
           </div>
 
           <div className='form-group row'>
