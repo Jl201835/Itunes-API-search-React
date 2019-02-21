@@ -66,7 +66,8 @@ class Search extends Component {
   formatSearchFields = ({ searchText, startDate, endDate }) => {
     const formatedSearchText = searchText.replace(/\s+/g, '+');
     let formatedStartDate, formatedEndDate;
-    if (startDate) {
+    const dateRgx = /\d{2}-\d{2}-\d{4}/;
+    if (startDate && dateRgx.test(startDate)) {
       const startMonth = Number(startDate.slice(0, 2)) - 1;
       const startDay = Number(startDate.slice(3, 5));
       const startYear = Number(startDate.slice(6, 10));
@@ -75,7 +76,7 @@ class Search extends Component {
       formatedStartDate = new Date(1900, 0, 1);
     }
 
-    if (endDate) {
+    if (endDate && dateRgx.test(endDate)) {
       const endMonth = Number(endDate.slice(0, 2)) - 1;
       const endDay = Number(endDate.slice(3, 5));
       const endYear = Number(endDate.slice(6, 10));
@@ -118,7 +119,17 @@ class Search extends Component {
               />
             </div>
             <div className='form-group column col-sm-6'>
-              <label>Release Date:</label>
+              <label htmlFor='startDate'>
+                Release Date:
+                {(this.state.startDate &&
+                  !/\d{2}-\d{2}-\d{4}/.test(this.state.startDate)) ||
+                (this.state.endDate &&
+                  !/\d{2}-\d{2}-\d{4}/.test(this.state.endDate)) ? (
+                  <span className='text-danger'> MM-DD-YYYY</span>
+                ) : (
+                  ''
+                )}
+              </label>
               <div className='form-group row'>
                 <label className='mr-4 col-sm-1'>from</label>
                 <input
