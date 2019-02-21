@@ -31,7 +31,7 @@ class Search extends Component {
 
     const requestUri =
       `https://cors-anywhere.herokuapp.com/` +
-      `https://itunes.apple.com/search?term=${formatedSearchText}`;
+      `https://itunes.apple.com/search?term=${formatedSearchText}&limit=200`;
 
     try {
       const { data } = await Axios.get(requestUri);
@@ -139,7 +139,8 @@ class Search extends Component {
               disabled={
                 !this.state.searchText &&
                 !this.state.startDate &&
-                !this.state.endDate
+                !this.state.endDate &&
+                !this.props.resultsReady
               }
               onClick={this.onClearButtonClick}
             >
