@@ -93,9 +93,21 @@ class Search extends Component {
         <div className='form-group column'>
           <div className='form-group row'>
             <div className='form-group column col-sm-6'>
-              <label>Artist Name:</label>
+              <label htmlFor='searchText'>
+                Artist Name:
+                {!this.state.searchText ? (
+                  <span className='text-danger'> required</span>
+                ) : /[^A-Za-z0-9\s]/.test(this.state.searchText) ? (
+                  <span className='text-danger'>
+                    {' '}
+                    only alpha numeric characters and spaces allowed
+                  </span>
+                ) : (
+                  ''
+                )}
+              </label>
               <input
-                className='mr-1 col-sm-10 form-control'
+                className='mr-1 col-sm-8 form-control'
                 required
                 pattern='[A-Za-z0-9\s]+'
                 type='text'
