@@ -2,19 +2,23 @@ import React from 'react';
 import SearchResult from './SearchResult';
 import PropTypes from 'prop-types';
 
-const AllResults = ({ songs }) => {
+const AllResults = ({ songs, resultsReady }) => {
+  console.log(resultsReady);
   return (
     <div>
-      {songs.length ? (
-        <div>
-          <hr />
-          <div className='row'>
-            {songs.map((song, idx) => (
-              <SearchResult songData={song} key={idx} />
-            ))}
+      {resultsReady &&
+        (songs.length ? (
+          <div>
+            <hr />
+            <div className='row'>
+              {songs.map((song, idx) => (
+                <SearchResult songData={song} key={idx} />
+              ))}
+            </div>
           </div>
-        </div>
-      ) : null}
+        ) : (
+          'No results found'
+        ))}
     </div>
   );
 };

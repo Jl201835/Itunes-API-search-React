@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SearchResult = ({ songData }) => {
+  const releaseYear = songData.releaseDate.slice(0, 4);
+  const releaseMonth = songData.releaseDate.slice(5, 7);
+  const releaseDay = songData.releaseDate.slice(8, 10);
+  const formatedReleaseDate = `${releaseMonth}-${releaseDay}-${releaseYear}`;
+
   return (
     <div className='col-lg-2 col-sm-4 col-md-3'>
       <div className='card'>
@@ -19,7 +24,7 @@ const SearchResult = ({ songData }) => {
           >
             {songData.collectionName}
           </p>
-          <p className='text-sm-left card-text'>{songData.artistName}</p>
+          <p className='text-sm-left card-text'>{formatedReleaseDate}</p>
         </div>
       </div>
     </div>

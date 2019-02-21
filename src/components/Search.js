@@ -18,7 +18,7 @@ class Search extends Component {
     });
   };
 
-  onButtonClick = async () => {
+  onSearchButtonClick = async () => {
     this.setState({
       fetchingData: true
     });
@@ -44,7 +44,7 @@ class Search extends Component {
       });
 
       this.setState({ fetchingData: false }, () => {
-        this.props.setResults(searchResults);
+        this.props.setResults(searchResults, true);
       });
     } catch (error) {
       this.setState({
@@ -52,15 +52,18 @@ class Search extends Component {
         fetchingData: false
       });
     }
+  };
 
+  onClearButtonClick = () => {
     this.setState({
       searchText: '',
       startDate: '',
       endDate: ''
     });
+    this.props.setResults([], false);
   };
 
-  formatSearchFields({ searchText, startDate, endDate }) {
+  formatSearchFields = ({ searchText, startDate, endDate }) => {
     const formatedSearchText = searchText.replace(/\s+/g, '+');
     let formatedStartDate, formatedEndDate;
     if (startDate) {
@@ -81,9 +84,10 @@ class Search extends Component {
       formatedEndDate = Date.now();
     }
     return { formatedSearchText, formatedStartDate, formatedEndDate };
-  }
+  };
 
   render() {
+    console.log(this.props.resultsReady);
     return (
       <div>
         <div className='form-group column'>
@@ -91,6 +95,8 @@ class Search extends Component {
             <label className='mr-1 col-sm-2'>Artist Name:</label>
             <input
               className='mr-1 col-sm-4 form-control'
+              required
+              pattern='[A-Za-z0-9\s]+'
               type='text'
               placeholder='Search songs by artist name'
               name='searchText'
@@ -119,13 +125,27 @@ class Search extends Component {
               value={this.state.endDate}
             />
           </div>
-          <button
-            className='col-sm-2 btn btn-primary'
-            disabled={!this.state.searchText}
-            onClick={this.onButtonClick}
-          >
-            Search
-          </button>
+
+          <div className='form-group row'>
+            <button
+              className='col-sm-1 mx-2 btn btn-primary'
+              disabled={!this.state.searchText}
+              onClick={this.onSearchButtonClick}
+            >
+              Search
+            </button>
+            <button
+              className='col-sm-1 mx-2 btn btn-primary'
+              disabled={
+                !this.state.searchText &&
+                !this.state.startDate &&
+                !this.state.endDate
+              }
+              onClick={this.onClearButtonClick}
+            >
+              Clear
+            </button>
+          </div>
         </div>
 
         {this.state.fetchingData ? (
@@ -133,7 +153,12 @@ class Search extends Component {
         ) : (
           (this.state.error && (
             <p className='text-danger'>{this.state.error}</p>
-          )) || <AllResults songs={this.props.results} />
+          )) || (
+            <AllResults
+              songs={this.props.results}
+              resultsReady={this.props.resultsReady}
+            />
+          )
         )}
       </div>
     );

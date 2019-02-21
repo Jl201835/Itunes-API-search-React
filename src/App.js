@@ -3,11 +3,12 @@ import Search from './components/Search';
 
 class App extends Component {
   state = {
-    results: []
+    results: [],
+    resultsReady: false
   };
 
-  setResults = results => {
-    this.setState({ results });
+  setResults = (results, resultsReady) => {
+    this.setState({ results, resultsReady });
   };
 
   render() {
@@ -17,7 +18,11 @@ class App extends Component {
           <h3 className='text-muted'>Itunes Song Search</h3>
         </div>
         <div className='jumbotron'>
-          <Search results={this.state.results} setResults={this.setResults} />
+          <Search
+            results={this.state.results}
+            setResults={this.setResults}
+            resultsReady={this.state.resultsReady}
+          />
         </div>
       </div>
     );
