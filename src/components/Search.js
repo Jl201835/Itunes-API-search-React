@@ -36,14 +36,12 @@ class Search extends Component {
     try {
       const { data } = await Axios.get(requestUri);
 
-      console.log(data.results.length);
       const searchResults = data.results.filter(song => {
         const releaseDate = new Date(song.releaseDate);
         return (
           releaseDate >= formatedStartDate && releaseDate <= formatedEndDate
         );
       });
-      console.log(searchResults.length);
 
       this.setState({ fetchingData: false }, () => {
         this.props.setResults(searchResults);
