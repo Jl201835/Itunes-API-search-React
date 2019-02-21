@@ -88,7 +88,6 @@ class Search extends Component {
   };
 
   render() {
-    console.log(this.props.resultsReady);
     return (
       <div>
         <div className='form-group column'>

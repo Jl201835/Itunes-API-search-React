@@ -3,7 +3,6 @@ import SearchResult from './SearchResult';
 import PropTypes from 'prop-types';
 
 const AllResults = ({ songs, resultsReady }) => {
-  console.log(resultsReady);
   return (
     <div>
       {resultsReady &&
