@@ -184,6 +184,7 @@ class Search extends Component {
             <AllResults
               songs={this.props.results}
               resultsReady={this.props.resultsReady}
+              expandSong={this.props.expandSong}
             />
           )
         )}

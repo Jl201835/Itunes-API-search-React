@@ -2,7 +2,7 @@ import React from 'react';
 import SearchResult from './SearchResult';
 import PropTypes from 'prop-types';
 
-const AllResults = ({ songs, resultsReady }) => {
+const AllResults = ({ songs, resultsReady, expandSong }) => {
   return (
     <div>
       {resultsReady &&
@@ -11,7 +11,11 @@ const AllResults = ({ songs, resultsReady }) => {
             <hr />
             <div className='row'>
               {songs.map((song, idx) => (
-                <SearchResult songData={song} key={idx} />
+                <SearchResult
+                  songData={song}
+                  expandSong={expandSong}
+                  key={idx}
+                />
               ))}
             </div>
           </div>

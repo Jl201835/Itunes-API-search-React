@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchResult = ({ songData }) => {
+const SearchResult = ({ songData, expandSong }) => {
   const releaseYear = songData.releaseDate.slice(0, 4);
   const releaseMonth = songData.releaseDate.slice(5, 7);
   const releaseDay = songData.releaseDate.slice(8, 10);
@@ -25,6 +25,13 @@ const SearchResult = ({ songData }) => {
             {songData.collectionName}
           </p>
           <p className='text-sm-left card-text'>{formatedReleaseDate}</p>
+
+          <button
+            className='btn btn-primary'
+            onClick={() => expandSong(songData)}
+          >
+            More Info
+          </button>
         </div>
       </div>
     </div>
