@@ -6,6 +6,7 @@ const SearchResult = ({ songData }) => {
   const releaseMonth = songData.releaseDate.slice(5, 7);
   const releaseDay = songData.releaseDate.slice(8, 10);
   const formatedReleaseDate = `${releaseMonth}-${releaseDay}-${releaseYear}`;
+  const previewUrl = songData.previewUrl;
 
   return (
     <div className='col-lg-2 col-sm-4 col-md-3'>
@@ -25,6 +26,9 @@ const SearchResult = ({ songData }) => {
             {songData.collectionName}
           </p>
           <p className='text-sm-left card-text'>{formatedReleaseDate}</p>
+          <a href={previewUrl} target='blank'>
+            <button className='btn btn-secondary'>Listen</button>
+          </a>
         </div>
       </div>
     </div>
