@@ -4,11 +4,7 @@ body {
   font-family: sans-serif;
 }
 
-/* .card {
-  height: 320px;
-  margin-bottom: 20px;
-} */
-
 .card {
+  height: 320px;
   margin-bottom: 20px;
 }
