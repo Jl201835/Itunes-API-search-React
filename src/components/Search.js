@@ -4,27 +4,21 @@ import AllResults from './AllResults';
 import PropTypes from 'prop-types';
 
 class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText: '',
-      startDate: '',
-      endDate: '',
-      error: '',
-      fetchingData: false
-    };
-    this.onTextChange = this.onTextChange.bind(this);
-    this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
-    //this.onClearButtonClick = this.onClearButtonClick.bind(this);
-  }
+  state = {
+    searchText: '',
+    startDate: '',
+    endDate: '',
+    error: '',
+    fetchingData: false
+  };
 
-  onTextChange(e) {
+  onTextChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
+  };
 
-  async onSearchButtonClick(e) {
+  onSearchButtonClick = async e => {
     e.preventDefault();
 
     this.setState({
@@ -60,7 +54,7 @@ class Search extends Component {
         fetchingData: false
       });
     }
-  }
+  };
 
   onClearButtonClick = e => {
     e.preventDefault();
@@ -166,7 +160,6 @@ class Search extends Component {
               <button
                 className='col-sm-1 mx-2 btn btn-primary'
                 disabled={!this.state.searchText}
-                //onClick={this.onSearchButtonClick}
                 name='search'
                 type='submit'
               >
