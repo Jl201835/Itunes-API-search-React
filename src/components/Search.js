@@ -18,7 +18,9 @@ class Search extends Component {
     });
   };
 
-  onSearchButtonClick = async () => {
+  onSearchButtonClick = async e => {
+    e.preventDefault();
+
     this.setState({
       fetchingData: true
     });
@@ -54,7 +56,8 @@ class Search extends Component {
     }
   };
 
-  onClearButtonClick = () => {
+  onClearButtonClick = e => {
+    e.preventDefault();
     this.setState({
       searchText: '',
       startDate: '',
@@ -90,90 +93,93 @@ class Search extends Component {
   render() {
     return (
       <div>
-        <div className='form-group column'>
-          <div className='form-group row'>
-            <div className='form-group column col-sm-6'>
-              <label htmlFor='searchText'>
-                Artist Name:
-                {!this.state.searchText ? (
-                  <span className='text-danger'> required</span>
-                ) : /[^A-Za-z0-9\s]/.test(this.state.searchText) ? (
-                  <span className='text-danger'>
-                    {' '}
-                    only alpha numeric characters and spaces allowed
-                  </span>
-                ) : (
-                  ''
-                )}
-              </label>
-              <input
-                className='mr-1 col-sm-8 form-control'
-                required
-                pattern='[A-Za-z0-9\s]+'
-                type='text'
-                placeholder='Search songs by artist name'
-                name='searchText'
-                onChange={this.onTextChange}
-                value={this.state.searchText}
-              />
-            </div>
-            <div className='form-group column col-sm-6'>
-              <label htmlFor='startDate'>
-                Release Date:
-                {(this.state.startDate &&
-                  !/\d{2}-\d{2}-\d{4}/.test(this.state.startDate)) ||
-                (this.state.endDate &&
-                  !/\d{2}-\d{2}-\d{4}/.test(this.state.endDate)) ? (
-                  <span className='text-danger'> MM-DD-YYYY</span>
-                ) : (
-                  ''
-                )}
-              </label>
-              <div className='form-group row'>
-                <label className='mr-4 col-sm-1'>from</label>
+        <form onSubmit={this.onSearchButtonClick}>
+          <div className='form-group column'>
+            <div className='form-group row'>
+              <div className='form-group column col-sm-6'>
+                <label htmlFor='searchText'>
+                  Artist Name:
+                  {!this.state.searchText ? (
+                    <span className='text-danger'> required</span>
+                  ) : /[^A-Za-z0-9\s]/.test(this.state.searchText) ? (
+                    <span className='text-danger'>
+                      {' '}
+                      only alpha numeric characters and spaces allowed
+                    </span>
+                  ) : (
+                    ''
+                  )}
+                </label>
                 <input
-                  className='mr-1 col-sm-3 form-control'
+                  className='mr-1 col-sm-8 form-control'
+                  required
+                  pattern='[A-Za-z0-9\s]+'
                   type='text'
-                  placeholder='MM-DD-YYYY'
-                  name='startDate'
+                  placeholder='Search songs by artist name'
+                  name='searchText'
                   onChange={this.onTextChange}
-                  value={this.state.startDate}
-                />
-                <label className='mr-2 col-sm-1'>to</label>
-                <input
-                  className='mr-1 col-sm-3 form-control'
-                  type='text'
-                  placeholder='MM-DD-YYYY'
-                  name='endDate'
-                  onChange={this.onTextChange}
-                  value={this.state.endDate}
+                  value={this.state.searchText}
                 />
               </div>
+              <div className='form-group column col-sm-6'>
+                <label htmlFor='startDate'>
+                  Release Date:
+                  {(this.state.startDate &&
+                    !/\d{2}-\d{2}-\d{4}/.test(this.state.startDate)) ||
+                  (this.state.endDate &&
+                    !/\d{2}-\d{2}-\d{4}/.test(this.state.endDate)) ? (
+                    <span className='text-danger'> MM-DD-YYYY</span>
+                  ) : (
+                    ''
+                  )}
+                </label>
+                <div className='form-group row'>
+                  <label className='mr-4 col-sm-1'>from</label>
+                  <input
+                    className='mr-1 col-sm-3 form-control'
+                    type='text'
+                    placeholder='MM-DD-YYYY'
+                    name='startDate'
+                    onChange={this.onTextChange}
+                    value={this.state.startDate}
+                  />
+                  <label className='mr-2 col-sm-1'>to</label>
+                  <input
+                    className='mr-1 col-sm-3 form-control'
+                    type='text'
+                    placeholder='MM-DD-YYYY'
+                    name='endDate'
+                    onChange={this.onTextChange}
+                    value={this.state.endDate}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className='form-group row'>
+              <button
+                className='col-sm-1 mx-2 btn btn-primary'
+                disabled={!this.state.searchText}
+                name='search'
+                type='submit'
+              >
+                Search
+              </button>
+              <button
+                className='col-sm-1 mx-2 btn btn-primary'
+                disabled={
+                  !this.state.searchText &&
+                  !this.state.startDate &&
+                  !this.state.endDate &&
+                  !this.props.resultsReady
+                }
+                onClick={this.onClearButtonClick}
+              >
+                Clear
+              </button>
             </div>
           </div>
-
-          <div className='form-group row'>
-            <button
-              className='col-sm-1 mx-2 btn btn-primary'
-              disabled={!this.state.searchText}
-              onClick={this.onSearchButtonClick}
-            >
-              Search
-            </button>
-            <button
-              className='col-sm-1 mx-2 btn btn-primary'
-              disabled={
-                !this.state.searchText &&
-                !this.state.startDate &&
-                !this.state.endDate &&
-                !this.props.resultsReady
-              }
-              onClick={this.onClearButtonClick}
-            >
-              Clear
-            </button>
-          </div>
-        </div>
+        </form>
 
         {this.state.fetchingData ? (
           <p className='lead text-center'>{'loading... '}</p>
